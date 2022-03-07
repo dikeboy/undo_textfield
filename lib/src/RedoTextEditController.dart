@@ -60,13 +60,11 @@ class RedoTextEditController extends TextEditingController {
   void _handleKeyDown(RawKeyEvent value) {
     if (value is RawKeyDownEvent) {
       final k = value.logicalKey.keyLabel;
-
       if (k == LogicalKeyboardKey.enter.keyLabel) {
         enterCallback?.call();
       }else if(k==LogicalKeyboardKey.keyZ.keyLabel){
         if(isMetaleft()){
           if(pressKey.contains(LogicalKeyboardKey.shiftLeft.keyLabel)){
-            print("cando");
             if(copyStack.canRedo()){
                 text=copyStack.redo();
                selection = TextSelection.fromPosition(TextPosition(offset: Math.min(text.length,lastSelection)));
@@ -74,7 +72,6 @@ class RedoTextEditController extends TextEditingController {
           }else{
             if(copyStack.canUndo()){
               copyStack.undo();
-              print(copyStack.peak());
               text = copyStack.peak();
               selection = TextSelection.fromPosition(TextPosition(offset: Math.min(text.length,lastSelection)));
             }
