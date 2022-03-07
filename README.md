@@ -7,7 +7,16 @@ Flutter desktop textfield  undo or redo
 
 
 ```javascript
+
   var urlController = RedoTextEditController();
+  
+  @override
+  void initState() {
+    super.initState();
+    urlController.initState();
+
+  }
+  
   Widget getChild(){
     return TextField(
       controller: urlController,
