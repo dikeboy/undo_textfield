@@ -52,7 +52,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var urlController = RedoTextEditController();
+
 
   @override
   void initState() {
@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   }
 
-
+  var urlController = RedoTextEditController();
   Widget getChild(){
     return TextField(
       controller: urlController,

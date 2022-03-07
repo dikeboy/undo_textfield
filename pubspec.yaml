@@ -1,6 +1,6 @@
 name: undo_textfield
 description: A flutter plugin that for desktop textfield undo or redo.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/dikeboy/undo_textfield
 
 environment:
