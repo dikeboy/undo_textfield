@@ -32,6 +32,18 @@ flutter:
     # then add platforms following the instruction here:
     # https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin-platforms
     # -------------------
+      android:
+        default_package: undo_textfield
+      ios:
+        default_package: undo_textfield
+      macos:
+        default_package: undo_textfield
+      linux:
+        default_package: undo_textfield
+      windows:
+        default_package: undo_textfield
+      web:
+        default_package: undo_textfield
       some_platform:
         pluginClass: somePluginClass
     # -------------------
