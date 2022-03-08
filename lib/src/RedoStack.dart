@@ -49,7 +49,6 @@ class RedoStack<T> {
   T redo() {
     T lastElement = _redoStack.last;
     _redoStack.removeLast();
-
     if(_undoStack.length==limit){
       _undoStack.removeFirst();
     }
