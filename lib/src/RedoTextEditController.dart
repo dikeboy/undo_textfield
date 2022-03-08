@@ -65,16 +65,9 @@ class RedoTextEditController extends TextEditingController {
       }else if(k==LogicalKeyboardKey.keyZ.keyLabel){
         if(isMetaleft()){
           if(pressKey.contains(LogicalKeyboardKey.shiftLeft.keyLabel)){
-            if(copyStack.canRedo()){
-                text=copyStack.redo();
-               selection = TextSelection.fromPosition(TextPosition(offset: Math.min(text.length,lastSelection)));
-             }
+             redo();
           }else{
-            if(copyStack.canUndo()){
-              copyStack.undo();
-              text = copyStack.peak();
-              selection = TextSelection.fromPosition(TextPosition(offset: Math.min(text.length,lastSelection)));
-            }
+             undo();
           }
 
         }
@@ -89,6 +82,25 @@ class RedoTextEditController extends TextEditingController {
     }
   }
 
+  void redo(){
+    if(copyStack.canRedo()){
+      text=copyStack.redo();
+      selection = TextSelection.fromPosition(TextPosition(offset: Math.min(text.length,lastSelection)));
+    }
+  }
+
+  void undo(){
+    if(copyStack.canUndo()){
+      copyStack.undo();
+      if(copyStack.canUndo()){
+        text = copyStack.peak();
+      }else{
+        text = "";
+      }
+      selection = TextSelection.fromPosition(TextPosition(offset: Math.min(text.length,lastSelection)));
+
+    }
+  }
   @override
   void dispose() {
     super.dispose();
