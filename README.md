@@ -5,6 +5,8 @@ Flutter desktop textfield  undo or redo
 For mac.  metaleft+z. and. metaleft+shiftLeft+z
 For win.  ctrlLeft+z. and ctrlLeft+shiftLeft+z
 
+you can also call use methdo undo  or redo
+
 * [How to install](https://pub.dev/packages/undo_textfield)
 
 
