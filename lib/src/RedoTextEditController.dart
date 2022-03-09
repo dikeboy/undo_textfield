@@ -35,8 +35,10 @@ class RedoTextEditController extends TextEditingController {
           // textController.text = copyStack.peak();
         }else{
           if(value.composing.start==-1){
-            copyStack.push(text);
-            lastSelection =selection.base.offset;
+            if(copyStack.undolength==0||text!=copyStack.peak()){
+              copyStack.push(text);
+              lastSelection =selection.base.offset;
+            }
           }
         }
     };
@@ -92,12 +94,10 @@ class RedoTextEditController extends TextEditingController {
   void undo(){
     if(copyStack.canUndo()){
       copyStack.undo();
-      if(copyStack.canUndo()){
+      if(copyStack.undolength>0){
         text = copyStack.peak();
-      }else{
-        text = "";
+        selection = TextSelection.fromPosition(TextPosition(offset: Math.min(text.length,lastSelection)));
       }
-      selection = TextSelection.fromPosition(TextPosition(offset: Math.min(text.length,lastSelection)));
 
     }
   }
