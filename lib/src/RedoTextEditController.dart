@@ -109,8 +109,8 @@ class RedoTextEditController extends TextEditingController {
   }
 
   bool isMetaleft(){
-    return (Platform.isMacOS&&pressKey.contains(LogicalKeyboardKey.metaLeft.keyLabel))
-        ||(Platform.isWindows&&pressKey.contains(LogicalKeyboardKey.controlLeft.keyLabel));
+    return (TargetPlatform.macOS==defaultTargetPlatform&&pressKey.contains(LogicalKeyboardKey.metaLeft.keyLabel))
+        ||(TargetPlatform.windows==defaultTargetPlatform&&pressKey.contains(LogicalKeyboardKey.controlLeft.keyLabel));
   }
 
 }
