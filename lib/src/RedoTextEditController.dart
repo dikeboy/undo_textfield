@@ -55,6 +55,19 @@ class RedoTextEditController extends TextEditingController {
 
   }
 
+   @override
+  void addListener(VoidCallback listener) {
+    if(listener.toString().contains("_push")){
+      return;
+    }
+    if(kIsWeb){
+      if(StackTrace.current.toString().contains("editable_text.dart 4")){
+        return;
+      }
+    }
+    super.addListener(listener);
+  }
+  
   void addEnterClickListener(EnterCallback listener) {
       this.enterCallback = listener;
   }
