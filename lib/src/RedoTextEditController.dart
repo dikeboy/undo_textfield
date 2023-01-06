@@ -4,6 +4,7 @@ import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart';
 
 import 'dart:math' as Math;
 
@@ -21,27 +22,26 @@ class RedoTextEditController extends TextEditingController {
   EnterCallback? enterCallback;
   VoidCallback? listener;
 
-
-  /**
-   * undolimit  undo stack max size
-   */
-  void initState({int undolimit=20}){
+  RedoTextEditController({ int undolimit=20 }){
     copyStack = RedoStack<String>(limit:undolimit);
     keyListener = (value){
       _handleKeyDown(value);
     };
     listener=() {
-        if(isMetaleft()){
-          // textController.text = copyStack.peak();
-        }else{
-          if(value.composing.start==-1){
-            if(copyStack.undolength==0||text!=copyStack.peak()){
-              copyStack.push(text);
-              lastSelection =selection.base.offset;
-            }
+      if(isMetaleft()){
+        // textController.text = copyStack.peak();
+      }else{
+        // print("sel = ${value.isComposingRangeValid}");
+        // print("start = ${value.composing.start}  end = ${value.composing.end}");
+        if(value.composing.start==-1){
+          if(copyStack.undolength==0||text!=copyStack.peak()){
+            copyStack.push(text);
+            lastSelection =selection.base.offset;
           }
         }
+      }
     };
+
     this.addListener(listener!);
 
     forcusNode.addListener(() {
@@ -52,10 +52,17 @@ class RedoTextEditController extends TextEditingController {
         RawKeyboard.instance.removeListener(keyListener);
       }
     });
+  }
+
+  /**
+   * undolimit  undo stack max size
+   */
+  void initState({int undolimit=20}){
+
 
   }
 
-   @override
+  @override
   void addListener(VoidCallback listener) {
     if(listener.toString().contains("_push")){
       return;
@@ -67,9 +74,8 @@ class RedoTextEditController extends TextEditingController {
     }
     super.addListener(listener);
   }
-  
   void addEnterClickListener(EnterCallback listener) {
-      this.enterCallback = listener;
+    this.enterCallback = listener;
   }
 
   void _handleKeyDown(RawKeyEvent value) {
@@ -80,9 +86,9 @@ class RedoTextEditController extends TextEditingController {
       }else if(k==LogicalKeyboardKey.keyZ.keyLabel){
         if(isMetaleft()){
           if(pressKey.contains(LogicalKeyboardKey.shiftLeft.keyLabel)){
-             redo();
+            redo();
           }else{
-             undo();
+            undo();
           }
 
         }
@@ -126,4 +132,14 @@ class RedoTextEditController extends TextEditingController {
         ||(TargetPlatform.windows==defaultTargetPlatform&&pressKey.contains(LogicalKeyboardKey.controlLeft.keyLabel));
   }
 
+
+  @override
+  set value(TextEditingValue newValue) {
+    super.value = newValue;
+  }
+
+  @override
+  void userUpdateTextEditingValue(TextEditingValue value, SelectionChangedCause? cause) {
+
+  }
 }
