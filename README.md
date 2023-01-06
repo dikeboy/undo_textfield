@@ -7,6 +7,8 @@ For win.  ctrlLeft+z. and ctrlLeft+shiftLeft+z
 
 you can also call use methdo undo  or redo
 
+support for chinese input method
+
 * [How to install](https://pub.dev/packages/undo_textfield)
 
 
